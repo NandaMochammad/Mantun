@@ -10,7 +10,7 @@ import UIKit
 
 class MantunTableViewController: UITableViewController{
     
-    let itemArray = ["Get Breakfast", "Go to Bus Station", "Go to Academy", "FInish Udemy Module"]
+    var itemArray = ["Get Breakfast", "Go to Bus Station", "Go to Academy", "FInish Udemy Module"]
     var inits = 0
     
     override func viewDidLoad() {
@@ -54,6 +54,32 @@ class MantunTableViewController: UITableViewController{
         }
     }
     
+    ////////////////////////////////////////////
+    
+    //MARK - Add New Item
+    
+    @IBAction func addDoList(_ sender: UIBarButtonItem) {
+        var newitem : UITextField!
+        
+        let alert = UIAlertController(title: "Add New Do List", message: " ", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            //Set what will happen when user tap the button
+            print("yeay")
+            self.itemArray.append(newitem.text ?? "")
+            self.tableView.reloadData()
+        }
+        
+        alert.addTextField { (textField) in
+            textField.placeholder = "Add New Item"
+            newitem = textField
+
+        }
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
+    }
     
     
     

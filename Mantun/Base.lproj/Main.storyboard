@@ -28,7 +28,14 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Mantun" id="xFS-ol-I1H"/>
+                    <navigationItem key="navigationItem" title="Mantun" id="xFS-ol-I1H">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="7bH-x3-wfG">
+                            <color key="tintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="addDoList:" destination="V7D-om-UCS" id="ls4-aH-qw2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fKZ-GT-YsK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
