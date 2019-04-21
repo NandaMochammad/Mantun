@@ -12,11 +12,15 @@ class MantunTableViewController: UITableViewController{
     
     var itemArray = ["Get Breakfast", "Go to Bus Station", "Go to Academy", "FInish Udemy Module"]
     var inits = 0
+    var defaults = UserDefaults.standard
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        if let items = defaults.array(forKey: "ArrayDoList") as? [String]{
+            itemArray = items
+        }
         
     }
 
@@ -68,6 +72,7 @@ class MantunTableViewController: UITableViewController{
             print("yeay")
             self.itemArray.append(newitem.text ?? "")
             self.tableView.reloadData()
+            self.defaults.set(self.itemArray, forKey: "ArrayDoList")
         }
         
         alert.addTextField { (textField) in
