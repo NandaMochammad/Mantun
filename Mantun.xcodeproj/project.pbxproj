@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		042A6F79226D6951005A450F /* TitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042A6F78226D6951005A450F /* TitleModel.swift */; };
+		042A6F7F226D6C67005A450F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 042A6F7E226D6C67005A450F /* Default-568h@2x.png */; };
 		04D073FB226C49E8000E69BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D073FA226C49E8000E69BA /* AppDelegate.swift */; };
 		04D073FD226C49E8000E69BA /* MantunTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D073FC226C49E8000E69BA /* MantunTableViewController.swift */; };
 		04D07400226C49E8000E69BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04D073FE226C49E8000E69BA /* Main.storyboard */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		042A6F78226D6951005A450F /* TitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleModel.swift; sourceTree = "<group>"; };
+		042A6F7E226D6C67005A450F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		04D073F7226C49E8000E69BA /* Mantun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mantun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04D073FA226C49E8000E69BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04D073FC226C49E8000E69BA /* MantunTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MantunTableViewController.swift; sourceTree = "<group>"; };
@@ -35,9 +39,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		042A6F7A226D69E7005A450F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				042A6F78226D6951005A450F /* TitleModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		042A6F7B226D69EE005A450F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				04D073FE226C49E8000E69BA /* Main.storyboard */,
+				04D07403226C49E9000E69BA /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		042A6F7C226D69F3005A450F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				04D073FA226C49E8000E69BA /* AppDelegate.swift */,
+				04D073FC226C49E8000E69BA /* MantunTableViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		042A6F7D226D6A28005A450F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				04D07401226C49E9000E69BA /* Assets.xcassets */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		04D073EE226C49E8000E69BA = {
 			isa = PBXGroup;
 			children = (
+				042A6F7E226D6C67005A450F /* Default-568h@2x.png */,
 				04D073F9226C49E8000E69BA /* Mantun */,
 				04D073F8226C49E8000E69BA /* Products */,
 			);
@@ -54,11 +93,10 @@
 		04D073F9226C49E8000E69BA /* Mantun */ = {
 			isa = PBXGroup;
 			children = (
-				04D073FA226C49E8000E69BA /* AppDelegate.swift */,
-				04D073FC226C49E8000E69BA /* MantunTableViewController.swift */,
-				04D073FE226C49E8000E69BA /* Main.storyboard */,
-				04D07401226C49E9000E69BA /* Assets.xcassets */,
-				04D07403226C49E9000E69BA /* LaunchScreen.storyboard */,
+				042A6F7A226D69E7005A450F /* Model */,
+				042A6F7B226D69EE005A450F /* View */,
+				042A6F7C226D69F3005A450F /* Controller */,
+				042A6F7D226D6A28005A450F /* Supporting Files */,
 				04D07406226C49E9000E69BA /* Info.plist */,
 			);
 			path = Mantun;
@@ -123,6 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04D07405226C49E9000E69BA /* LaunchScreen.storyboard in Resources */,
+				042A6F7F226D6C67005A450F /* Default-568h@2x.png in Resources */,
 				04D07402226C49E9000E69BA /* Assets.xcassets in Resources */,
 				04D07400226C49E8000E69BA /* Main.storyboard in Resources */,
 			);
@@ -135,6 +174,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				042A6F79226D6951005A450F /* TitleModel.swift in Sources */,
 				04D073FD226C49E8000E69BA /* MantunTableViewController.swift in Sources */,
 				04D073FB226C49E8000E69BA /* AppDelegate.swift in Sources */,
 			);
