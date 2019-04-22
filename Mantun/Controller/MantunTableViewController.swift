@@ -10,17 +10,18 @@ import UIKit
 
 class MantunTableViewController: UITableViewController{
     
+    //Declare Data Saved Location on Stroage
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("TitleModel.plist")
+    
     //Declare Model as Global Variable as! Array of item Object
     var itemArray = [TitleModel]()
-    
-    //Declare User Defaults as Global Variable
-    var defaults = UserDefaults.standard
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
 
+        print(dataFilePath)
+        
         //Input Data to Model
         //1. Declare as a String
         let titleModel = TitleModel()
@@ -37,11 +38,8 @@ class MantunTableViewController: UITableViewController{
         titleModel2.titleString = "Go to Academy"
         itemArray.append(titleModel2)
         
-        //Get data Item Object from Model
-        if let items = defaults.array(forKey: "ArrayDoList") as? [TitleModel]{
-            itemArray = items
-        }
-        
+        //Load Data
+        loadItem()
     }
 
     
@@ -80,8 +78,7 @@ class MantunTableViewController: UITableViewController{
         //Change value of selected row
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         
-        //Reload Data to call Resource Data again
-        tableView.reloadData()
+        saveditem()
 
     }
     
@@ -104,11 +101,7 @@ class MantunTableViewController: UITableViewController{
             //Add New DO list to array item object
             self.itemArray.append(titleModel)
             
-            //Save to userdefaults
-            self.defaults.set(self.itemArray, forKey: "ArrayDoList")
-            
-            self.tableView.reloadData()
-
+            self.saveditem()
         }
         
         alert.addTextField { (textField) in
@@ -122,6 +115,33 @@ class MantunTableViewController: UITableViewController{
         present(alert, animated: true, completion: nil)
     }
     
+    ///////////////////////////////////////
+    //Mark - Model Manipulation Methods
+    //Save item using NSCoder - Encode data
+    func saveditem(){
+        let encoder = PropertyListEncoder()
+        
+        do{
+            let data = try encoder.encode(itemArray)
+            try data.write(to: dataFilePath!)
+        }catch{
+            print("Error while encoding, \(error)")
+        }
+        
+        self.tableView.reloadData()
+    }
+    
+    //Get item using NSCoder - Decode  data
+    func loadItem(){
+        if let data = try? Data(contentsOf: dataFilePath!){
+            let decoder = PropertyListDecoder()
+            do{
+                itemArray = try decoder.decode([TitleModel].self, from: data)
+            }catch{
+                print("Error while Decode, \(error)")
+            }
+        }
+    }
     
     
 
