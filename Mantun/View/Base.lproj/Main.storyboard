@@ -10,6 +10,45 @@
     </dependencies>
     <scenes>
         <!--Mantun-->
+        <scene sceneID="9Kd-ET-uqX">
+            <objects>
+                <tableViewController id="vwH-J1-iSW" customClass="CategoryTableViewController" customModule="Mantun" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="yMd-kV-JTr">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" id="o7J-Kh-lBI">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="o7J-Kh-lBI" id="rSa-bc-WX9">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="vwH-J1-iSW" id="QCy-8e-bkE"/>
+                            <outlet property="delegate" destination="vwH-J1-iSW" id="pmr-rR-aFI"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Mantun" id="Omd-kZ-WKA">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="6vM-9s-vEL">
+                            <color key="tintColor" red="1" green="0.99998790029999995" blue="0.9999920726" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <connections>
+                                <action selector="addButtonTapped:" destination="vwH-J1-iSW" id="8pu-Ga-hYg"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="V7D-om-UCS" kind="show" identifier="goToItem" id="anj-Rq-Gxc"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BDJ-3N-0kE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="796" y="31"/>
+        </scene>
+        <!--Gawe-->
         <scene sceneID="QVz-gV-9hF">
             <objects>
                 <tableViewController id="V7D-om-UCS" customClass="MantunTableViewController" customModule="Mantun" customModuleProvider="target" sceneMemberID="viewController">
@@ -17,9 +56,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="doR-fK-Koe">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="V7D-om-UCS" id="T5C-S2-245"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mantunCellTable" id="bjB-CO-ABd">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="72" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bjB-CO-ABd" id="KVl-Rd-sXC">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -28,7 +75,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Mantun" id="xFS-ol-I1H">
+                    <navigationItem key="navigationItem" title="Gawe" id="xFS-ol-I1H">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="7bH-x3-wfG">
                             <color key="tintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -36,10 +83,13 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="gaweTitle" destination="xFS-ol-I1H" id="uy5-3q-Dzs"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fKZ-GT-YsK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="723" y="31"/>
+            <point key="canvasLocation" x="1641" y="31"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="go8-vn-7DG">
@@ -57,7 +107,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="V7D-om-UCS" kind="relationship" relationship="rootViewController" id="Kzu-ia-UF7"/>
+                        <segue destination="vwH-J1-iSW" kind="relationship" relationship="rootViewController" id="kOV-KP-g1O"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RoR-8Y-xgY" userLabel="First Responder" sceneMemberID="firstResponder"/>
