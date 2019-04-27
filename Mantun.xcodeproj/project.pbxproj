@@ -17,6 +17,7 @@
 		04D07402226C49E9000E69BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04D07401226C49E9000E69BA /* Assets.xcassets */; };
 		04D07405226C49E9000E69BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04D07403226C49E9000E69BA /* LaunchScreen.storyboard */; };
 		04DAC00F226EB20F0086FF9D /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 04DAC00D226EB20E0086FF9D /* DataModel.xcdatamodeld */; };
+		2D6FE40DDC26C97F6C73E1CE /* Pods_Mantun.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D798B991FC7CAB188CBD458F /* Pods_Mantun.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,9 @@
 		04D07404226C49E9000E69BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04D07406226C49E9000E69BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04DAC00E226EB20E0086FF9D /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		4777F1A75AC1366441E09E1F /* Pods-Mantun.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mantun.debug.xcconfig"; path = "Target Support Files/Pods-Mantun/Pods-Mantun.debug.xcconfig"; sourceTree = "<group>"; };
+		93385895629A9C5DBC1AE9C9 /* Pods-Mantun.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mantun.release.xcconfig"; path = "Target Support Files/Pods-Mantun/Pods-Mantun.release.xcconfig"; sourceTree = "<group>"; };
+		D798B991FC7CAB188CBD458F /* Pods_Mantun.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mantun.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D6FE40DDC26C97F6C73E1CE /* Pods_Mantun.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,12 +86,22 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		048FB541AE258313F0B7E72A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D798B991FC7CAB188CBD458F /* Pods_Mantun.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		04D073EE226C49E8000E69BA = {
 			isa = PBXGroup;
 			children = (
 				042A6F7E226D6C67005A450F /* Default-568h@2x.png */,
 				04D073F9226C49E8000E69BA /* Mantun */,
 				04D073F8226C49E8000E69BA /* Products */,
+				7CE108BADC28B2662F3F7B78 /* Pods */,
+				048FB541AE258313F0B7E72A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -111,6 +126,16 @@
 			path = Mantun;
 			sourceTree = "<group>";
 		};
+		7CE108BADC28B2662F3F7B78 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4777F1A75AC1366441E09E1F /* Pods-Mantun.debug.xcconfig */,
+				93385895629A9C5DBC1AE9C9 /* Pods-Mantun.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -118,9 +143,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 04D07409226C49E9000E69BA /* Build configuration list for PBXNativeTarget "Mantun" */;
 			buildPhases = (
+				B564B440DBA5A2B7FA9050DB /* [CP] Check Pods Manifest.lock */,
 				04D073F3226C49E8000E69BA /* Sources */,
 				04D073F4226C49E8000E69BA /* Frameworks */,
 				04D073F5226C49E8000E69BA /* Resources */,
+				6E0517A3E70E5F0982E03B90 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -177,6 +204,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6E0517A3E70E5F0982E03B90 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Mantun/Pods-Mantun-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Mantun/Pods-Mantun-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Mantun/Pods-Mantun-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B564B440DBA5A2B7FA9050DB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Mantun-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		04D073F3226C49E8000E69BA /* Sources */ = {
@@ -332,6 +401,7 @@
 		};
 		04D0740A226C49E9000E69BA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4777F1A75AC1366441E09E1F /* Pods-Mantun.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -350,6 +420,7 @@
 		};
 		04D0740B226C49E9000E69BA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 93385895629A9C5DBC1AE9C9 /* Pods-Mantun.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
