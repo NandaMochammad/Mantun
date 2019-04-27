@@ -7,29 +7,26 @@
 //
 
 import UIKit
- import CoreData
+import RealmSwift
 
 class CategoryTableViewController: UITableViewController {
+    
+    let realm = try! Realm()
+    var category: Results<Category>!
+    
 
-    //Declare context and use method inside AppDelegate
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
-    var categories = [Category]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
-        loadItems()
-    
+        loadCategory()
+        
     }
     
     
     //MARK: - TableView  DataSource Methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return categories.count
+         return category.count
     
     }
     
@@ -37,7 +34,7 @@ class CategoryTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
         
-        cell.textLabel?.text = categories[indexPath.row].name
+        cell.textLabel?.text = category[indexPath.row].name
         
         return cell
     }
@@ -49,8 +46,6 @@ class CategoryTableViewController: UITableViewController {
     
         performSegue(withIdentifier: "goToItem", sender: self)
         
-//        tableView.deselectRow(at: indexPath, animated: true)
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -59,7 +54,7 @@ class CategoryTableViewController: UITableViewController {
         
         if let indexPath = tableView.indexPathForSelectedRow {
             
-            destinationVC.selectedCategory = categories[indexPath.row]
+            destinationVC.selectedCategory = category[indexPath.row]
         
         }
     
@@ -77,15 +72,11 @@ class CategoryTableViewController: UITableViewController {
             
             
             //Set what will happen when user tap the button
-            let newItem = Category(context: self.context)
+            let newItem = Category()
             
             newItem.name = textField.text!
             
-            //Add New DO list to array item object
-            self.categories.append(newItem)
-            
-            self.savedItems()
-
+            self.savedCategory()
         }
         
         alert.addTextField { (field) in
@@ -112,38 +103,24 @@ class CategoryTableViewController: UITableViewController {
     
     
     //MARK: - Data Manipulation Method
-    func savedItems(){
-        
+    func savedCategory(){
         do{
-            
-            try context.save()
-        
+            try realm.write {
+                realm.add(category)
+            }
         }catch{
-        
-            print("Error while save item ", error)
-        
+            print("Error savedItems in Category Controller \(error)")
         }
         
         tableView.reloadData()
-    
     }
     
-    func loadItems(){
+    func loadCategory(){
         
-        let request : NSFetchRequest<Category> = Category.fetchRequest()
-        
-        do{
-            
-            categories = try context.fetch(request)
-        
-        }catch{
-        
-            print("Error Fetch Data from Context \(error)")
-        
-        }
+        category = realm.objects(Category.self)
         
         tableView.reloadData()
-        
+
     }
 
     

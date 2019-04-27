@@ -20,21 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Get Realm file location path on storage
         print(Realm.Configuration.defaultConfiguration.fileURL ?? "Home")
-        
-        //Define object dataModel
-        let data = Data()
-        data.name = "Nanda"
-        data.age = 20
-        
-        //Build Realm Object and save method
-        do{
-            let realm = try Realm()
-            try realm.write {
-                realm.add(data)
-            }
-        }catch{
-            print("Error at AppDelegate ~ Realm", error)
-        }
+
         
         
         return true

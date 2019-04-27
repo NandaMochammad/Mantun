@@ -7,86 +7,84 @@
 //
 
 import UIKit
-import CoreData
+import RealmSwift
 
 class MantunTableViewController: UITableViewController{
     
     @IBOutlet weak var gaweTitle: UINavigationItem!
     
-    //Declare a context from Singleton UI Application
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
-    //Declare Model as Global Variable as! Array of item Object
-    var itemArray = [Item]()
+    let realm = try! Realm()
+    var mantunItem : Results<Item>?
     
     var selectedCategory : Category?{
-        
-        //Method below will executed after selectedCategory got an item
         didSet{
-        
-            //Load Data
             loadItem()
-        
         }
-    
     }
     
     override func viewDidLoad() {
-    
         super.viewDidLoad()
         
-//        Get Path of directory apps storage
-        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-
         if let title = selectedCategory?.name{
             gaweTitle.title = "\(title) Gawe"
             print(title)
         }
+        
     }
 
     
-    //MARK - Tableview Datasource Methods : This Method used for defin the data source
+    //MARK: - Tableview Datasource Methods
+    //This Method used for defin the data source
     //1. Define numberOfRowsInSection to get value of rows needed
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemArray.count
+        return mantunItem?.count ?? 0
     }
     
     //2. Define cellForRowAt to set the content on every cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let item = itemArray[indexPath.row]
-        
         //Declare the cell settings
         let cell = tableView.dequeueReusableCell(withIdentifier: "mantunCellTable", for: indexPath)
         
-        //Set the cell's text from datassource
-        cell.textLabel?.text = item.title
-        
-        //Using Ternary Operation
-        // value = condition ? valueTrue : valueFalse
-        cell.accessoryType = item.done == true ? .checkmark : .none
+        if let item = mantunItem?[indexPath.row]{
+            //Set the cell's text from datassource
+            cell.textLabel?.text = item.title
+            
+            //Using Ternary Operation
+            // value = condition ? valueTrue : valueFalse
+            cell.accessoryType = item.done == true ? .checkmark : .none
+        }else{
+            cell.textLabel?.text = "No Items Added"
+        }
         
         return cell
     }
     
-    //////////////////////////////////////////
-    
-    //MARK - Tableview Delegate Methods : This Method used for give an action if the cell get tapped
+
+    //MARK: - Tableview Delegate Methods
+    //This Method used for give an action if the cell get tapped
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         //Give an fade to white animation in selected row
         tableView.deselectRow(at: indexPath, animated: true)
         
         //Change value of selected row
-        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
+        if let currentCategory = mantunItem?[indexPath.row]{
+            do{
+                try self.realm.write {
+                    currentCategory.done = !currentCategory.done
+                }
+            }catch{
+                print("Error checkmark in didSelectRow -> \(error)")
+            }
+        }
         
-        savedItem()
+        tableView.reloadData()
 
     }
+
     
-    ////////////////////////////////////////////
-    
-    //MARK - Add New Item
+    //MARK: - Add New Item
     
     @IBAction func addDoList(_ sender: UIBarButtonItem) {
         
@@ -96,20 +94,20 @@ class MantunTableViewController: UITableViewController{
         
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             
+            if let currentCategory = self.selectedCategory{
+                do{
+                    try self.realm.write {
+                        let newItem = Item()
+                        newItem.title = newitem.text!
+                        currentCategory.items.append(newItem)
+                    }
+                }catch{
+                    print("Error addData in MantunTVC -> \(error)")
+                }
+                
+            }
             
-            //Set what will happen when user tap the button
-            let newItem = Item(context: self.context)
-            
-            newItem.title = newitem.text!
-            
-            newItem.done = false
-            
-            newItem.parentCategory = self.selectedCategory
-            
-            //Add New DO list to array item object
-            self.itemArray.append(newItem)
-            
-            self.savedItem()
+            self.tableView.reloadData()
             
         }//action
         
@@ -137,60 +135,22 @@ class MantunTableViewController: UITableViewController{
     {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    ///////////////////////////////////////
-    //Mark - Model Manipulation Methods
-    //Save item using NSCoder - Encode data
-    //Save item using CoreData
-    func savedItem(){
-//        let encoder = PropertyListEncoder()
-        
-        do{
-            try context.save()
-//            let data = try encoder.encode(itemArray)
-//            try data.write(to: dataFilePath!)
-        }catch{
-            print("Error saving context \(error)")
-//            print("Error while encoding, \(error)")
-        }
-        
-        self.tableView.reloadData()
-    }
-    
-//    Get item using NSCoder - Decode  data
-    func loadItem(with request : NSFetchRequest<Item> = Item.fetchRequest(), predicate : NSPredicate? = nil ){
-        
-        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
-        
-        if let additionalPredicate = predicate{
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, additionalPredicate])
-        }else{
-            request.predicate = categoryPredicate
-        }
 
-        do{
-            itemArray = try context.fetch(request)
-        }catch{
-            print("Error Fetch Data from Context \(context)")
-        }
+    
+    //MARK: - Data Manipulation Methods
+    func loadItem(){
         
+        mantunItem = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
+
         tableView.reloadData()
+        
+    }
 
-//        if let data = try? Data(contentsOf: dataFilePath!){
-//            let decoder = PropertyListDecoder()
-//            do{
-//                itemArray = try decoder.decode([TitleModel].self, from: data)
-//            }catch{
-//                print("Error while Decode, \(error)")
-//            }
-//        }
-    }
-    
-    func deleteData(_ index : Int){
-        context.delete(itemArray[index])
-        itemArray.remove(at: index)
-        savedItem()
-    }
+//    func deleteData(_ index : Int){
+//        context.delete(itemArray[index])
+//        itemArray.remove(at: index)
+//        savedItem()
+//    }
     
     ////////////////////////////////
     
@@ -201,36 +161,36 @@ class MantunTableViewController: UITableViewController{
 
 //MARK: - Search Method
 
-extension MantunTableViewController: UISearchBarDelegate{
-    
-    //Declare the action when the searchBarSearchButtonClicked
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
-        let request : NSFetchRequest<Item> = Item.fetchRequest() //declare the content of request
-        
-        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!) //Query to communicate with CoreData
-            
-        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)] //Give an action to sort ascending the table after sorting
-            
-        loadItem(with: request, predicate: predicate) //load item
-        
-    }//func
-    
-    //Declare the action of the searchBar(textDidChange)
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        if searchBar.text?.count == 0{
-        
-            loadItem()
-            
-            DispatchQueue.main.async { //to affect the user interface in foreground
-            
-                searchBar.resignFirstResponder() //to release the current status to original status
-                
-            }//dispatch
-            
-        }//if
-        
-    }//func
-    
-}//extension
+//extension MantunTableViewController: UISearchBarDelegate{
+//
+//    //Declare the action when the searchBarSearchButtonClicked
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//
+//        let request : NSFetchRequest<Item> = Item.fetchRequest() //declare the content of request
+//
+//        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!) //Query to communicate with CoreData
+//
+//        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)] //Give an action to sort ascending the table after sorting
+//
+//        loadItem(with: request, predicate: predicate) //load item
+//
+//    }//func
+//
+//    //Declare the action of the searchBar(textDidChange)
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//
+//        if searchBar.text?.count == 0{
+//
+//            loadItem()
+//
+//            DispatchQueue.main.async { //to affect the user interface in foreground
+//
+//                searchBar.resignFirstResponder() //to release the current status to original status
+//
+//            }//dispatch
+//
+//        }//if
+//
+//    }//func
+//
+//}//extension
