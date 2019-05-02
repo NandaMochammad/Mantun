@@ -12,7 +12,7 @@ import RealmSwift
 class CategoryTableViewController: UITableViewController {
     
     let realm = try! Realm()
-    var category: Results<Category>!
+    var category: Results<Category>?
     
 
     override func viewDidLoad() {
@@ -26,7 +26,7 @@ class CategoryTableViewController: UITableViewController {
     //MARK: - TableView  DataSource Methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-         return category.count
+         return category?.count ?? 1 //Nil Coalescing Operator
     
     }
     
@@ -34,7 +34,7 @@ class CategoryTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
         
-        cell.textLabel?.text = category[indexPath.row].name
+        cell.textLabel?.text = category?[indexPath.row].name ?? "No Category Added"
         
         return cell
     }
@@ -54,7 +54,7 @@ class CategoryTableViewController: UITableViewController {
         
         if let indexPath = tableView.indexPathForSelectedRow {
             
-            destinationVC.selectedCategory = category[indexPath.row]
+            destinationVC.selectedCategory = category?[indexPath.row]
         
         }
     
@@ -76,7 +76,9 @@ class CategoryTableViewController: UITableViewController {
             
             newItem.name = textField.text!
             
-            self.savedCategory()
+            print("Add new item ",newItem.name)
+            
+            self.savedCategory(categories: newItem)
         }
         
         alert.addTextField { (field) in
@@ -103,10 +105,10 @@ class CategoryTableViewController: UITableViewController {
     
     
     //MARK: - Data Manipulation Method
-    func savedCategory(){
+    func savedCategory(categories: Category){
         do{
             try realm.write {
-                realm.add(category)
+                realm.add(categories)
             }
         }catch{
             print("Error savedItems in Category Controller \(error)")

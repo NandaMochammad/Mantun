@@ -30,15 +30,15 @@ class DataManager: Object {
         }
     }
     
-    func loadDataFromRealm(){
-        
-        do{
+//    func loadDataFromRealm(){
+//
+//        do{
 //            let realm = try Realm()
-        }catch{
-            print("Error at DataManager Load ~ Realm", error)
-        }
-        
-    }
+//        }catch{
+//            print("Error at DataManager Load ~ Realm", error)
+//        }
+//
+//    }
     
     
 }//class DataManager

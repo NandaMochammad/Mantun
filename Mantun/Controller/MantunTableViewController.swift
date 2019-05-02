@@ -27,7 +27,6 @@ class MantunTableViewController: UITableViewController{
         
         if let title = selectedCategory?.name{
             gaweTitle.title = "\(title) Gawe"
-            print(title)
         }
         
     }
@@ -161,36 +160,30 @@ class MantunTableViewController: UITableViewController{
 
 //MARK: - Search Method
 
-//extension MantunTableViewController: UISearchBarDelegate{
-//
-//    //Declare the action when the searchBarSearchButtonClicked
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//
-//        let request : NSFetchRequest<Item> = Item.fetchRequest() //declare the content of request
-//
-//        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!) //Query to communicate with CoreData
-//
-//        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)] //Give an action to sort ascending the table after sorting
-//
-//        loadItem(with: request, predicate: predicate) //load item
-//
-//    }//func
-//
-//    //Declare the action of the searchBar(textDidChange)
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//
-//        if searchBar.text?.count == 0{
-//
-//            loadItem()
-//
-//            DispatchQueue.main.async { //to affect the user interface in foreground
-//
-//                searchBar.resignFirstResponder() //to release the current status to original status
-//
-//            }//dispatch
-//
-//        }//if
-//
-//    }//func
-//
-//}//extension
+extension MantunTableViewController: UISearchBarDelegate{
+
+    //Declare the action when the searchBarSearchButtonClicked
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+
+
+
+    }//func
+
+    //Declare the action of the searchBar(textDidChange)
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+
+        if searchBar.text?.count == 0{
+
+            loadItem()
+
+            DispatchQueue.main.async { //to affect the user interface in foreground
+
+                searchBar.resignFirstResponder() //to release the current status to original status
+
+            }//dispatch
+
+        }//if
+
+    }//func
+
+}//extension
