@@ -13,7 +13,10 @@ class MantunTableViewController: UITableViewController{
     
     @IBOutlet weak var gaweTitle: UINavigationItem!
     
-    let realm = try! Realm()
+    lazy var realm:Realm = {
+        return try! Realm()
+    }()
+    
     var mantunItem : Results<Item>?
     
     var selectedCategory : Category?{
@@ -98,7 +101,9 @@ class MantunTableViewController: UITableViewController{
                     try self.realm.write {
                         let newItem = Item()
                         newItem.title = newitem.text!
+                        newItem.dateCreated = self.getDateTime()[0]
                         currentCategory.items.append(newItem)
+                        print(newItem)
                     }
                 }catch{
                     print("Error addData in MantunTVC -> \(error)")
@@ -139,19 +144,26 @@ class MantunTableViewController: UITableViewController{
     //MARK: - Data Manipulation Methods
     func loadItem(){
         
-        mantunItem = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
+        mantunItem = selectedCategory?.items.sorted(byKeyPath: "dateCreated", ascending: true)
 
         tableView.reloadData()
         
     }
 
-//    func deleteData(_ index : Int){
-//        context.delete(itemArray[index])
-//        itemArray.remove(at: index)
-//        savedItem()
-//    }
-    
-    ////////////////////////////////
+    func getDateTime()->[String]{
+        
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        var result = [String]()
+        
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        result.append(dateFormatter.string(from: date))
+        
+        dateFormatter.dateFormat = "HH:mm:ss"
+        result.append(dateFormatter.string(from: date))
+        
+        return result
+    } //func getDateTime
     
     
     
@@ -165,7 +177,9 @@ extension MantunTableViewController: UISearchBarDelegate{
     //Declare the action when the searchBarSearchButtonClicked
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 
-
+        print(searchBar.text!)
+        mantunItem = mantunItem?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
+        tableView.reloadData()
 
     }//func
 
