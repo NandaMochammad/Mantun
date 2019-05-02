@@ -101,9 +101,8 @@ class MantunTableViewController: UITableViewController{
                     try self.realm.write {
                         let newItem = Item()
                         newItem.title = newitem.text!
-                        newItem.dateCreated = self.getDateTime()[0]
+                        newItem.dateCreated = Date.init()
                         currentCategory.items.append(newItem)
-                        print(newItem)
                     }
                 }catch{
                     print("Error addData in MantunTVC -> \(error)")
@@ -144,29 +143,13 @@ class MantunTableViewController: UITableViewController{
     //MARK: - Data Manipulation Methods
     func loadItem(){
         
-        mantunItem = selectedCategory?.items.sorted(byKeyPath: "dateCreated", ascending: true)
+        mantunItem = selectedCategory?.items.sorted(byKeyPath: "dateCreated", ascending: false)
 
+        print(mantunItem)
+        
         tableView.reloadData()
         
     }
-
-    func getDateTime()->[String]{
-        
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        var result = [String]()
-        
-        dateFormatter.dateFormat = "dd.MM.yyyy"
-        result.append(dateFormatter.string(from: date))
-        
-        dateFormatter.dateFormat = "HH:mm:ss"
-        result.append(dateFormatter.string(from: date))
-        
-        return result
-    } //func getDateTime
-    
-    
-    
 
 }//class
 
@@ -177,9 +160,7 @@ extension MantunTableViewController: UISearchBarDelegate{
     //Declare the action when the searchBarSearchButtonClicked
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 
-        print(searchBar.text!)
-        mantunItem = mantunItem?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
-        tableView.reloadData()
+        mantunItem = mantunItem?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: false)
 
     }//func
 
