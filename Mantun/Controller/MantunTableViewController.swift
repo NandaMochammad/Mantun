@@ -12,6 +12,10 @@ import ChameleonFramework
 
 class MantunTableViewController: SwipeTableViewController{
     
+    @IBOutlet weak var addButton: UIBarButtonItem!
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     @IBOutlet weak var gaweTitle: UINavigationItem!
     
     lazy var realm:Realm = {
@@ -31,10 +35,43 @@ class MantunTableViewController: SwipeTableViewController{
         
         tableView.separatorStyle = .none
                 
-        if let title = selectedCategory?.name{
-            gaweTitle.title = "\(title) Gawe"
-        }
         
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        guard let colorHex = selectedCategory?.color else { fatalError()}
+        
+        gaweTitle.title = "\(selectedCategory!.name) Gawe"
+        
+        updateNavBar(withHexCode: colorHex)
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        updateNavBar(withHexCode: "1D9BF6")
+        
+    }
+    
+    //MARK: - Nav Bar Set Up
+    func updateNavBar(withHexCode colorHexCode : String){
+        
+        guard let navBar = navigationController?.navigationBar else{ fatalError("Nav Controller does not exist") }
+        
+        guard let navBarColor = UIColor(hexString: colorHexCode) else { fatalError()}
+        
+        navBar.barTintColor = navBarColor
+        
+        navBar.tintColor = ContrastColorOf(navBarColor, returnFlat: true)
+        
+        navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : ContrastColorOf(navBarColor, returnFlat: true)]
+        
+        searchBar.barTintColor = navBarColor
+        
+        addButton.tintColor = ContrastColorOf(navBarColor, returnFlat: true)
+
     }
 
     
