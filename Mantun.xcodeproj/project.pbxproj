@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		042104B022740AF900B5427B /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042104AF22740AF900B5427B /* Category.swift */; };
 		042104B222740B0700B5427B /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042104B122740B0700B5427B /* Item.swift */; };
-		042104B4227410A600B5427B /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042104B3227410A600B5427B /* DataManager.swift */; };
 		042A6F7F226D6C67005A450F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 042A6F7E226D6C67005A450F /* Default-568h@2x.png */; };
 		044717FD22702F69000F7008 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044717FC22702F69000F7008 /* CategoryTableViewController.swift */; };
+		0465B59E227BF74300F9DA68 /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0465B59D227BF74300F9DA68 /* SwipeTableViewController.swift */; };
 		04D073FB226C49E8000E69BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D073FA226C49E8000E69BA /* AppDelegate.swift */; };
 		04D073FD226C49E8000E69BA /* MantunTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D073FC226C49E8000E69BA /* MantunTableViewController.swift */; };
 		04D07400226C49E8000E69BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04D073FE226C49E8000E69BA /* Main.storyboard */; };
@@ -23,9 +23,9 @@
 /* Begin PBXFileReference section */
 		042104AF22740AF900B5427B /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		042104B122740B0700B5427B /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		042104B3227410A600B5427B /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		042A6F7E226D6C67005A450F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		044717FC22702F69000F7008 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
+		0465B59D227BF74300F9DA68 /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
 		04D073F7226C49E8000E69BA /* Mantun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mantun.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04D073FA226C49E8000E69BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04D073FC226C49E8000E69BA /* MantunTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MantunTableViewController.swift; sourceTree = "<group>"; };
@@ -73,6 +73,7 @@
 			children = (
 				044717FC22702F69000F7008 /* CategoryTableViewController.swift */,
 				04D073FC226C49E8000E69BA /* MantunTableViewController.swift */,
+				0465B59D227BF74300F9DA68 /* SwipeTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -116,7 +117,6 @@
 			isa = PBXGroup;
 			children = (
 				04D073FA226C49E8000E69BA /* AppDelegate.swift */,
-				042104B3227410A600B5427B /* DataManager.swift */,
 				042A6F7A226D69E7005A450F /* Model */,
 				042A6F7B226D69EE005A450F /* View */,
 				042A6F7C226D69F3005A450F /* Controller */,
@@ -252,8 +252,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				042104B222740B0700B5427B /* Item.swift in Sources */,
-				042104B4227410A600B5427B /* DataManager.swift in Sources */,
 				044717FD22702F69000F7008 /* CategoryTableViewController.swift in Sources */,
+				0465B59E227BF74300F9DA68 /* SwipeTableViewController.swift in Sources */,
 				04D073FD226C49E8000E69BA /* MantunTableViewController.swift in Sources */,
 				04D073FB226C49E8000E69BA /* AppDelegate.swift in Sources */,
 				042104B022740AF900B5427B /* Category.swift in Sources */,

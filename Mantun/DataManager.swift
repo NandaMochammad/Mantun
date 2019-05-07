@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class DataManager: Object {
+class DataManager: NSObject {
     
     static let shared = DataManager()
 

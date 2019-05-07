@@ -14,4 +14,6 @@ class Item: Object{
     @objc dynamic var done: Bool = false
     @objc dynamic var dateCreated: Date?
     var parentCategory = LinkingObjects(fromType: Category.self, property: "items")
+    var color : String = ""
+
 }

@@ -8,8 +8,9 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
-class MantunTableViewController: UITableViewController{
+class MantunTableViewController: SwipeTableViewController{
     
     @IBOutlet weak var gaweTitle: UINavigationItem!
     
@@ -28,6 +29,8 @@ class MantunTableViewController: UITableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.separatorStyle = .none
+                
         if let title = selectedCategory?.name{
             gaweTitle.title = "\(title) Gawe"
         }
@@ -46,11 +49,16 @@ class MantunTableViewController: UITableViewController{
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         //Declare the cell settings
-        let cell = tableView.dequeueReusableCell(withIdentifier: "mantunCellTable", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         if let item = mantunItem?[indexPath.row]{
             //Set the cell's text from datassource
             cell.textLabel?.text = item.title
+            
+            if let color = UIColor(hexString: selectedCategory!.color)?.darken(byPercentage: CGFloat(indexPath.row)/CGFloat(mantunItem!.count)){
+                cell.backgroundColor = color
+                cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
+            }
             
             //Using Ternary Operation
             // value = condition ? valueTrue : valueFalse
@@ -144,11 +152,24 @@ class MantunTableViewController: UITableViewController{
     func loadItem(){
         
         mantunItem = selectedCategory?.items.sorted(byKeyPath: "dateCreated", ascending: false)
-
-        print(mantunItem)
         
         tableView.reloadData()
         
+    }
+    
+    //Delete Data from Swipe
+    override func updateModel(at indexPath: IndexPath) {
+        super.updateModel(at: indexPath)
+        
+        if let item = self.mantunItem?[indexPath.row]{
+            do{
+                try self.realm.write {
+                    self.realm.delete(item)
+                }
+            }catch{
+                print("Error delete category ", error)
+            }
+        }
     }
 
 }//class
@@ -182,3 +203,4 @@ extension MantunTableViewController: UISearchBarDelegate{
     }//func
 
 }//extension
+
